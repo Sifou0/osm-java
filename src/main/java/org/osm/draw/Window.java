@@ -9,7 +9,8 @@ import java.awt.*;
 
 public class Window extends JFrame {
 
-    private int width, height;
+    private final int width;
+    private final int height;
 
     public Window(Osm osm) {
         var windowSize = GeoMath.getWindowSizeFromBound(osm.getBounds());
@@ -17,6 +18,7 @@ public class Window extends JFrame {
         height = windowSize[1];
         initWindow();
         add(new NodeDraw(osm.getNodes(), osm.getBounds()));
+        add(new WayDraw(osm.getWays(),osm.getNodes(), osm.getBounds()));
     }
 
     private void initWindow() {

@@ -18,14 +18,15 @@ public class NodeDraw extends JPanel {
         this.bound = bound;
     }
 
+    private List<Point> getAllPointsFromNodes() {
+        return nodes.stream().map(node -> GeoMath.getPointPositionGivenWindowSize(bound,node)).toList();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.black);
-        this.nodes.forEach(node -> {
-           Point point = GeoMath.getPointPositionGivenWindowSize(bound,node);
-           g2d.drawLine(point.x,point.y,point.x,point.y);
-        });
+        getAllPointsFromNodes().forEach(point -> g2d.drawLine(point.x,point.y,point.x,point.y));
     }
 }
